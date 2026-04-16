@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thierry Landry Kamga Tadie — Cybersecurity Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --bg2: #111827;
+    --bg3: #1a2235;
+    --accent: #00d4aa;
+    --accent2: #0066ff;
+    --accent3: #7c3aed;
+    --text: #f0f4ff;
+    --text2: #9aa5be;
+    --text3: #5a6a8a;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(0,212,170,0.3);
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --glow: 0 0 40px rgba(0,212,170,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,14,26,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5vw;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-size: 13px; color: var(--text2); text-decoration: none;
+    letter-spacing: 0.05em; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 10vw 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,170,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,170,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,212,170,0.08) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 70%);
+    bottom: 0; left: 5vw;
+    pointer-events: none;
+  }
+  .hero-content { position: relative; max-width: 700px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--accent); letter-spacing: 0.1em;
+    border: 1px solid var(--border2);
+    padding: 6px 14px; border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .hero-tag::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .hero h1 {
+    font-family: var(--sans);
+    font-size: clamp(38px, 5.5vw, 72px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero-name {
+    font-family: var(--mono);
+    font-size: clamp(12px, 1.5vw, 16px);
+    color: var(--text3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero p {
+    font-size: 18px; color: var(--text2); line-height: 1.75;
+    max-width: 560px; margin-bottom: 40px;
+  }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0e1a;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600; font-size: 14px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-outline {
+    border: 1px solid var(--border2);
+    color: var(--accent);
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 14px; font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { background: rgba(0,212,170,0.08); }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 10vw; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px; color: var(--accent);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 600; letter-spacing: -0.02em;
+    margin-bottom: 56px;
+    color: var(--text);
+  }
+  .section-title span { color: var(--text2); font-weight: 300; }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .about-text p { color: var(--text2); line-height: 1.8; margin-bottom: 20px; }
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .stat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .stat-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 32px; color: var(--accent);
+    font-weight: 700; line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label { font-size: 13px; color: var(--text3); }
+
+  /* ── SKILLS ── */
+  .skills-section { background: var(--bg2); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .skill-group {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    transition: border-color 0.2s;
+  }
+  .skill-group:hover { border-color: var(--border2); }
+  .skill-group-icon {
+    width: 40px; height: 40px;
+    background: rgba(0,212,170,0.1);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+    font-size: 18px;
+  }
+  .skill-group h3 {
+    font-size: 15px; font-weight: 600;
+    color: var(--text); margin-bottom: 16px;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    background: var(--bg2);
+  }
+
+  /* ── EXPERIENCE ── */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 6px; top: 8px; bottom: 8px;
+    width: 1px; background: var(--border);
+  }
+  .timeline-item {
+    position: relative;
+    padding-bottom: 48px;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-dot {
+    position: absolute;
+    left: -29px; top: 6px;
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 0 4px rgba(0,212,170,0.1);
+  }
+  .timeline-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 4px;
+  }
+  .timeline-role { font-size: 17px; font-weight: 600; color: var(--text); }
+  .timeline-period {
+    font-family: var(--mono);
+    font-size: 11px; color: var(--text3);
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .timeline-company { font-size: 14px; color: var(--accent); margin-bottom: 14px; }
+  .timeline-bullets { list-style: none; padding: 0; }
+  .timeline-bullets li {
+    font-size: 14px; color: var(--text2); line-height: 1.7;
+    padding-left: 18px; position: relative; margin-bottom: 6px;
+  }
+  .timeline-bullets li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--accent); font-size: 11px; top: 3px;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-section { background: var(--bg2); }
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
+  .edu-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .edu-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .edu-badge {
+    font-family: var(--mono);
+    font-size: 10px; letter-spacing: 0.1em;
+    color: var(--accent);
+    background: rgba(0,212,170,0.08);
+    border: 1px solid var(--border2);
+    padding: 4px 10px; border-radius: 6px;
+    display: inline-block; margin-bottom: 16px;
+  }
+  .edu-degree { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+  .edu-school { font-size: 14px; color: var(--accent); margin-bottom: 6px; }
+  .edu-period { font-size: 13px; color: var(--text3); margin-bottom: 18px; font-family: var(--mono); }
+  .edu-highlights { list-style: none; }
+  .edu-highlights li {
+    font-size: 13px; color: var(--text2); line-height: 1.65;
+    padding-left: 16px; position: relative; margin-bottom: 8px;
+  }
+  .edu-highlights li::before {
+    content: '◆';
+    position: absolute; left: 0;
+    color: var(--accent3); font-size: 8px; top: 6px;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .cert-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex; align-items: center; gap: 18px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .cert-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .cert-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: rgba(0,102,255,0.12);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .cert-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .cert-status {
+    font-family: var(--mono);
+    font-size: 11px; color: var(--accent);
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--bg2);
+    text-align: center;
+  }
+  .contact-section .section-title { margin-bottom: 16px; }
+  .contact-sub {
+    font-size: 18px; color: var(--text2);
+    max-width: 480px; margin: 0 auto 48px;
+    line-height: 1.75;
+  }
+  .contact-cards {
+    display: flex; justify-content: center;
+    gap: 20px; flex-wrap: wrap;
+  }
+  .contact-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 28px;
+    min-width: 200px;
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none;
+    display: block;
+  }
+  .contact-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .contact-card-label {
+    font-family: var(--mono);
+    font-size: 10px; color: var(--text3);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .contact-card-value { font-size: 14px; color: var(--accent); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 10vw;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-left { font-family: var(--mono); font-size: 12px; color: var(--text3); }
+  .footer-right { font-size: 13px; color: var(--text3); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    section { padding: 70px 6vw; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero { padding: 120px 6vw 60px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">KAMGA.THIERRY</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Available for opportunities</div>
+    <div class="hero-name">Kamga Tadie Thierry Landry</div>
+    <h1>Securing Systems,<br><span>Defending the Future</span></h1>
+    <p>Software engineer turned cybersecurity professional. I identify vulnerabilities, harden systems, and build secure software from the ground up.</p>
+    <div class="hero-ctas">
+      <a href="#experience" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">// about me</div>
+  <h2 class="section-title">Background & <span>Overview</span></h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a motivated software engineering graduate currently pursuing a Postgraduate Certificate in Cybersecurity at George Brown Polytechnic (expected December 2026). My engineering background gives me a developer-first perspective on security — I understand how systems are built, and therefore how they break.</p>
+      <p>I bring hands-on experience with threat analysis, network security, vulnerability assessment, and secure coding practices. Whether it's hardening a Linux system, analyzing logs with Sumo Logic, or preventing injection attacks in web apps, I approach every challenge with precision and a proactive mindset.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Years in Software Engineering</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Internship Placements</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Certs In Progress (CompTIA)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2026</div>
+        <div class="stat-label">Expected Graduation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-section">
+  <div class="section-label">// technical skills</div>
+  <h2 class="section-title">What I <span>Work With</span></h2>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-icon">🔍</div>
+      <h3>Threat & Vulnerability</h3>
+      <div class="skill-tags">
+        <span class="tag">Threat Analysis</span>
+        <span class="tag">Vulnerability Assessment</span>
+        <span class="tag">Nmap</span>
+        <span class="tag">Wireshark</span>
+        <span class="tag">fcrackzip</span>
+        <span class="tag">Penetration Testing</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">🛡️</div>
+      <h3>Security Frameworks</h3>
+      <div class="skill-tags">
+        <span class="tag">NIST</span>
+        <span class="tag">ISO 27001</span>
+        <span class="tag">Risk Management</span>
+        <span class="tag">Access Control</span>
+        <span class="tag">Security Policies</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">🌐</div>
+      <h3>Networking</h3>
+      <div class="skill-tags">
+        <span class="tag">TCP/IP</span>
+        <span class="tag">DNS</span>
+        <span class="tag">Routing & Switching</span>
+        <span class="tag">VLANs</span>
+        <span class="tag">Firewall Config</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">💻</div>
+      <h3>Systems & Monitoring</h3>
+      <div class="skill-tags">
+        <span class="tag">Linux Security</span>
+        <span class="tag">Windows Security</span>
+        <span class="tag">VMware</span>
+        <span class="tag">Sumo Logic</span>
+        <span class="tag">Log Analysis</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">⚙️</div>
+      <h3>Software Development</h3>
+      <div class="skill-tags">
+        <span class="tag">HTML / CSS / JS</span>
+        <span class="tag">Secure Coding</span>
+        <span class="tag">SQL Injection Prevention</span>
+        <span class="tag">XSS Prevention</span>
+        <span class="tag">APIs</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">🔐</div>
+      <h3>Authentication & Auth</h3>
+      <div class="skill-tags">
+        <span class="tag">User Authentication</span>
+        <span class="tag">Access Control</span>
+        <span class="tag">Input Validation</span>
+        <span class="tag">Password Security</span>
+        <span class="tag">Session Management</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">// experience</div>
+  <h2 class="section-title">Professional <span>History</span></h2>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div class="timeline-role">Cybersecurity Intern</div>
+        <div class="timeline-period">Feb 2025 – May 2025</div>
+      </div>
+      <div class="timeline-company">Ministry of Social Affairs — Cameroon</div>
+      <ul class="timeline-bullets">
+        <li>Monitored network and system activity to detect potential security threats and vulnerabilities in a government environment.</li>
+        <li>Assisted users with password resets, account access issues, and guided them on security best practices.</li>
+        <li>Responded to user requests and resolved hardware/software technical issues in a timely manner.</li>
+        <li>Implemented security controls including access control measures and secure system configuration to protect organizational data.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div class="timeline-role">Software Development Intern</div>
+        <div class="timeline-period">Jun 2024 – Sep 2024</div>
+      </div>
+      <div class="timeline-company">REAX — Cameroon</div>
+      <ul class="timeline-bullets">
+        <li>Supported back-end development including server-side logic, REST APIs, and database integration.</li>
+        <li>Performed software maintenance and debugging across front-end and back-end code bases.</li>
+        <li>Collaborated with the team to test and deploy applications, ensuring functionality and performance targets were met.</li>
+        <li>Developed and maintained front-end components using HTML, CSS, and JavaScript to improve UX.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div class="timeline-role">IT Support Intern</div>
+        <div class="timeline-period">Jun 2023 – Sep 2023</div>
+      </div>
+      <div class="timeline-company">SALAR — Cameroon</div>
+      <ul class="timeline-bullets">
+        <li>Troubleshot and resolved application and system issues, improving overall system reliability.</li>
+        <li>Provided technical support for users across Microsoft Office and web-based systems.</li>
+        <li>Managed and updated databases, ensuring data integrity and proper application data storage.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="edu-section">
+  <div class="section-label">// education</div>
+  <h2 class="section-title">Academic <span>Background</span></h2>
+  <div class="edu-grid">
+
+    <div class="edu-card">
+      <div class="edu-badge">IN PROGRESS</div>
+      <div class="edu-degree">Cybersecurity Graduate Certificate</div>
+      <div class="edu-school">George Brown Polytechnic — Toronto, ON</div>
+      <div class="edu-period">Jan 2026 – Dec 2026</div>
+      <ul class="edu-highlights">
+        <li>Conducted password security analysis demonstrating how brute-force tools like fcrackzip can crack weak passwords.</li>
+        <li>Performed vulnerability assessments on simulated networks using Nmap and Wireshark to identify weaknesses and recommend mitigations.</li>
+        <li>Secured a Linux system by configuring user permissions, firewalls, and monitoring tools.</li>
+      </ul>
+    </div>
+
+    <div class="edu-card">
+      <div class="edu-badge">COMPLETED</div>
+      <div class="edu-degree">Software Engineering Program</div>
+      <div class="edu-school">IAI Cameroon — Yaoundé, Center Region</div>
+      <div class="edu-period">Oct 2021 – Oct 2024</div>
+      <ul class="edu-highlights">
+        <li>Designed and tested software systems using secure coding practices, identifying and fixing security flaws during development.</li>
+        <li>Built <strong>HIRE-BRIDGE</strong> — a digital job portal with user authentication, access control, and protection of sensitive data.</li>
+        <li>Applied input validation and authentication mechanisms to prevent SQL injection and XSS vulnerabilities in web applications.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">// certifications</div>
+  <h2 class="section-title">Credentials & <span>Achievements</span></h2>
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-icon">🔒</div>
+      <div>
+        <div class="cert-name">CompTIA Security+</div>
+        <div class="cert-status">In Progress — Expected 2026</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🌐</div>
+      <div>
+        <div class="cert-name">CompTIA Network+</div>
+        <div class="cert-status">In Progress — Expected 2026</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🎓</div>
+      <div>
+        <div class="cert-name">George Brown Polytechnic</div>
+        <div class="cert-status">Cybersecurity Postgrad — 2026</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">⚙️</div>
+      <div>
+        <div class="cert-name">IAI Cameroon</div>
+        <div class="cert-status">Software Engineering Grad</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-label">// contact</div>
+  <h2 class="section-title">Let's <span>Connect</span></h2>
+  <p class="contact-sub">Open to cybersecurity roles, internships, and collaborative projects. Feel free to reach out.</p>
+  <div class="contact-cards">
+    <a href="mailto:ThierryLandry.KamgaTadie@georgebrown.ca" class="contact-card">
+      <div class="contact-card-label">Email</div>
+      <div class="contact-card-value">ThierryLandry.KamgaTadie<br>@georgebrown.ca</div>
+    </a>
+    <div class="contact-card">
+      <div class="contact-card-label">Phone</div>
+      <div class="contact-card-value">(437) 235-8675</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-label">Location</div>
+      <div class="contact-card-value">Toronto, Ontario, CA</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">© 2026 Kamga Tadie Thierry Landry</div>
+  <div class="footer-right">Built from resume · Digital Portfolio</div>
+</footer>
+
+</body>
+</html>
